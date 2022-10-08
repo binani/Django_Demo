@@ -1,4 +1,5 @@
 {% load static %}
+{% load crispy_forms_tags %} 
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +9,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Contact Management</title>
+  <title>Django CRM Project</title>
 
   <!-- Custom fonts for this template-->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet" type="text/css">
@@ -16,6 +17,11 @@
 
   <!-- Custom styles for this template-->
   <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+
+  <!-- Date Time Picker CSS -->
+  <link rel="stylesheet" href="{% static 'date-time-phone/jquery-ui.css' %}">
+  <link rel='stylesheet' href="{% static 'date-time-phone/jquery-ui-timepicker-addon.css' %}" />
+  <!-- Date Time Picker CSS -->
 
 </head>
 
@@ -36,11 +42,16 @@
       </a>
 
       <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <p class="text-center text-white font-weight-bold">Welcome {{user.first_name}} {{user.last_name}}!</p>
+
+      <!-- Divider -->
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{% url 'dashboard' %}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -72,6 +83,13 @@
           <span>Profile</span></a>
       </li>
 
+      <!-- Nav Item - Change Password -->
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'change-password' %}">
+          <i class="fas fa-fw fa-key"></i>
+          <span>Change Password</span></a>
+      </li>
+
       <!-- Nav Item - Logout -->
       <li class="nav-item">
         <a class="nav-link" href="{% url 'logout' %}">
@@ -91,8 +109,10 @@
       <!-- Main Content -->
       <div id="content">
 
-        {% block content %} {% endblock content %}
 
+
+        {% block content %}  {% endblock content %}
+        
       </div>
       <!-- End of Main Content -->
 
@@ -101,6 +121,52 @@
 
   </div>
   <!-- End of Page Wrapper -->
+
+  {% block script %}  {% endblock script %}
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+
+  <script>
+    setTimeout(function(){
+      if ($('#msg').length > 0) {
+        $('#msg').remove();
+      }
+    }, 2000)
+  </script>
+
+  <!-- Date Time Picker JS -->
+  <script src="{% static 'date-time-phone/jquery-ui.js' %}" ></script>
+  <script src="{% static 'date-time-phone/jquery-ui-timepicker-addon.js' %}"></script> 
+
+  <script>
+    $( function() {
+        // $( "#id_birth_date" ).datetimepicker({ dateFormat: 'yy-mm-dd', maxDate: 0, controlType: 'select'}).attr("autocomplete", "off") ;
+        // $( "#id_birth_date" ).timepicker({ dateFormat: 'yy-mm-dd', maxDate: 0, controlType: 'select'}).attr("autocomplete", "off") ;
+        $( "#id_birth_date" ).datepicker({ dateFormat: 'yy-mm-dd' }).attr("autocomplete", "off") ;
+    });
+  </script>
+  <!-- Date Time Picker JS -->
+
+  <!-- Phone Mask JS -->
+  <script src="{% static 'date-time-phone/jquery-input-mask-phone-number.min.js' %}"></script> 
+
+  <script>
+    //(xxx) xxx-xxxx format code
+    $(document).ready(function () {
+        $('#id_phone_number').usPhoneFormat({
+            format: '(xxx) xxx-xxxx',
+        });   
+    });
+  </script>
+  <!-- Phone Mask JS -->
 
 </body>
 

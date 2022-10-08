@@ -39,4 +39,42 @@ urlpatterns = [
 
     path('dashboard/', DashboardView.as_view(), name='dashboard'),
 
+    path('change-password',
+        auth_views.PasswordChangeView.as_view(
+         template_name='common/change-password.html',
+         success_url='/'
+        ),
+         name='change-password'
+    ),
+
+    #Forget Password
+    path('password-reset/',
+         auth_views.PasswordResetView.as_view(
+         template_name='common/password-reset/password_reset.html',
+         subject_template_name='common/password-reset/password_reset_subject.txt',
+         email_template_name='common/password-reset/password_reset_email.html',
+         # success_rul='/login/'
+         ),
+        name='password_reset'),
+
+    path('password-rest/done/',
+        auth_views.PasswordResetDoneView.as_view(
+            template_name='common/password-reset/password_reset_done.html'
+        ),
+         name='password_reset_done'
+    ),
+
+    path('password-reset-confirm/<uidb64>/<token>/',
+         auth_views.PasswordResetConfirmView.as_view(
+             template_name='common/password-reset/password_reset_confirm.html'
+         ),
+         name='password_reset_confirm'
+    ),
+
+    path('password-rest-complete/',
+         auth_views.PasswordResetCompleteView.as_view(
+             template_name='common/password-reset/password_reset_complete.html'
+         ),
+         name='password_reset_complete'),
+
 ]
