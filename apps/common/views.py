@@ -62,6 +62,5 @@ class ProfileUpdateView(LoginRequiredMixin, TemplateView):
                                     )
         return self.render_to_response(context)
 
-        def get(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
             return self.post(request, *args, **kwargs)
-        
